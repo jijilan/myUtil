@@ -8,126 +8,84 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Author: liujiebang
- * @Description: 快递鸟
- * @Date: 2018/6/27 18:11
- **/
 public class KdniaoTrackQueryAPI {
 
-	//DEMO
-	public static void main(String[] args) {
-		KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
-		try {
-			String result = api.getOrderTracesByJson("SF", "210001633605");
-			System.out.print(result);
+    //DEMO
+    public static void main(String[] args) {
+        KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
+        try {
+            String result = api.getOrderTracesByJson("SF", "210001633605");
+            System.out.print(result);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**电商ID*/
-	private String EBusinessID="test1356377";
-	/**电商加密私钥，快递鸟提供，注意保管，不要泄漏*/
-	private String AppKey="e9d53bd3-3684-4086-b872-8053a3066e87";
-	/**正式请求url*/
-	private String ReqURL="http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
-	/**测试环境url*/
- 	private String ReqURL_TEST="http://sandboxapi.kdniao.cc:8080/kdniaosandbox/gateway/exterfaceInvoke.json";
-	/**
-     * Json方式 查询订单物流轨迹
-	 * @throws Exception
-     */
-	public String getOrderTracesByJson(String expCode, String expNo) throws Exception{
-		String requestData= "{'OrderCode':'78578568567576','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";
-		System.out.println(requestData);
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("RequestData", urlEncoder(requestData, "UTF-8"));
-		params.put("EBusinessID", EBusinessID);
-		params.put("RequestType", "1002");
-		String dataSign=encrypt(requestData, AppKey, "UTF-8");
-		params.put("DataSign", urlEncoder(dataSign, "UTF-8"));
-		params.put("DataType", "2");
+    private String EBusinessID = "test1356377";
+    private String AppKey = "e9d53bd3-3684-4086-b872-8053a3066e87";
+    private String ReqURL = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
+    private String ReqURL_TEST = "http://sandboxapi.kdniao.cc:8080/kdniaosandbox/gateway/exterfaceInvoke.json";
 
-		String result=sendPost(ReqURL_TEST, params);
+    public String getOrderTracesByJson(String expCode, String expNo) throws Exception {
+        String requestData = "{'OrderCode':'78578568567576','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";
+        System.out.println(requestData);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("RequestData", urlEncoder(requestData, "UTF-8"));
+        params.put("EBusinessID", EBusinessID);
+        params.put("RequestType", "1002");
+        String dataSign = encrypt(requestData, AppKey, "UTF-8");
+        params.put("DataSign", urlEncoder(dataSign, "UTF-8"));
+        params.put("DataType", "2");
 
-		//根据公司业务处理返回的信息......
+        String result = sendPost(ReqURL_TEST, params);
 
-		return result;
-	}
+        //根据公司业务处理返回的信息......
 
-	/**
-     * MD5加密
-     * @param str 内容
-     * @param charset 编码方式
-	 * @throws Exception
-     */
-	@SuppressWarnings("unused")
-	private String MD5(String str, String charset) throws Exception {
-	    MessageDigest md = MessageDigest.getInstance("MD5");
-	    md.update(str.getBytes(charset));
-	    byte[] result = md.digest();
-	    StringBuffer sb = new StringBuffer(32);
-	    for (int i = 0; i < result.length; i++) {
-	        int val = result[i] & 0xff;
-	        if (val <= 0xf) {
-	            sb.append("0");
-	        }
-	        sb.append(Integer.toHexString(val));
-	    }
-	    return sb.toString().toLowerCase();
-	}
+        return result;
+    }
 
-	/**
-     * base64编码
-     * @param str 内容
-     * @param charset 编码方式
-	 * @throws UnsupportedEncodingException
-     */
-	private String base64(String str, String charset) throws UnsupportedEncodingException{
-		String encoded = base64Encode(str.getBytes(charset));
-		return encoded;
-	}
+    private String MD5(String str, String charset) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(str.getBytes(charset));
+        byte[] result = md.digest();
+        StringBuffer sb = new StringBuffer(32);
+        for (int i = 0; i < result.length; i++) {
+            int val = result[i] & 0xff;
+            if (val <= 0xf) {
+                sb.append("0");
+            }
+            sb.append(Integer.toHexString(val));
+        }
+        return sb.toString().toLowerCase();
+    }
 
-	@SuppressWarnings("unused")
-	private String urlEncoder(String str, String charset) throws UnsupportedEncodingException{
-		String result = URLEncoder.encode(str, charset);
-		return result;
-	}
+    private String base64(String str, String charset) throws UnsupportedEncodingException {
+        String encoded = base64Encode(str.getBytes(charset));
+        return encoded;
+    }
 
-	/**
-     * 电商Sign签名生成
-     * @param content 内容
-     * @param keyValue Appkey
-     * @param charset 编码方式
-	 * @throws UnsupportedEncodingException ,Exception
-	 * @return DataSign签名
-     */
-	@SuppressWarnings("unused")
-	private String encrypt (String content, String keyValue, String charset) throws UnsupportedEncodingException, Exception
-	{
-		if (keyValue != null)
-		{
-			return base64(MD5(content + keyValue, charset), charset);
-		}
-		return base64(MD5(content, charset), charset);
-	}
+    @SuppressWarnings("unused")
+    private String urlEncoder(String str, String charset) throws UnsupportedEncodingException {
+        String result = URLEncoder.encode(str, charset);
+        return result;
+    }
 
-	 /**
-     * 向指定 URL 发送POST方法的请求
-     * @param url 发送请求的 URL
-     * @param params 请求的参数集合
-     * @return 远程资源的响应结果
-     */
-	@SuppressWarnings("unused")
-	private String sendPost(String url, Map<String, String> params) {
+    private String encrypt(String content, String keyValue, String charset) throws UnsupportedEncodingException, Exception {
+        if (keyValue != null) {
+            return base64(MD5(content + keyValue, charset), charset);
+        }
+        return base64(MD5(content, charset), charset);
+    }
+
+    @SuppressWarnings("unused")
+    private String sendPost(String url, Map<String, String> params) {
         OutputStreamWriter out = null;
         BufferedReader in = null;
         StringBuilder result = new StringBuilder();
         try {
             URL realUrl = new URL(url);
-            HttpURLConnection conn =(HttpURLConnection) realUrl.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -144,18 +102,18 @@ public class KdniaoTrackQueryAPI {
             out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
             // 发送请求参数
             if (params != null) {
-		          StringBuilder param = new StringBuilder();
-		          for (Map.Entry<String, String> entry : params.entrySet()) {
-		        	  if(param.length()>0){
-		        		  param.append("&");
-		        	  }
-		        	  param.append(entry.getKey());
-		        	  param.append("=");
-		        	  param.append(entry.getValue());
-		        	  //System.out.println(entry.getKey()+":"+entry.getValue());
-		          }
-		          //System.out.println("param:"+param.toString());
-		          out.write(param.toString());
+                StringBuilder param = new StringBuilder();
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    if (param.length() > 0) {
+                        param.append("&");
+                    }
+                    param.append(entry.getKey());
+                    param.append("=");
+                    param.append(entry.getValue());
+                    //System.out.println(entry.getKey()+":"+entry.getValue());
+                }
+                //System.out.println("param:"+param.toString());
+                out.write(param.toString());
             }
             // flush输出流的缓冲
             out.flush();
@@ -170,16 +128,15 @@ public class KdniaoTrackQueryAPI {
             e.printStackTrace();
         }
         //使用finally块来关闭输出流、输入流
-        finally{
-            try{
-                if(out!=null){
+        finally {
+            try {
+                if (out != null) {
                     out.close();
                 }
-                if(in!=null){
+                if (in != null) {
                     in.close();
                 }
-            }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
@@ -187,15 +144,15 @@ public class KdniaoTrackQueryAPI {
     }
 
 
-    private static char[] base64EncodeChars = new char[] {
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-        'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-        'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-        'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-        'w', 'x', 'y', 'z', '0', '1', '2', '3',
-        '4', '5', '6', '7', '8', '9', '+', '/' };
+    private static char[] base64EncodeChars = new char[]{
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+            'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+            'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+            'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+            'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+            'w', 'x', 'y', 'z', '0', '1', '2', '3',
+            '4', '5', '6', '7', '8', '9', '+', '/'};
 
     public static String base64Encode(byte[] data) {
         StringBuffer sb = new StringBuffer();
@@ -204,16 +161,14 @@ public class KdniaoTrackQueryAPI {
         int b1, b2, b3;
         while (i < len) {
             b1 = data[i++] & 0xff;
-            if (i == len)
-            {
+            if (i == len) {
                 sb.append(base64EncodeChars[b1 >>> 2]);
                 sb.append(base64EncodeChars[(b1 & 0x3) << 4]);
                 sb.append("==");
                 break;
             }
             b2 = data[i++] & 0xff;
-            if (i == len)
-            {
+            if (i == len) {
                 sb.append(base64EncodeChars[b1 >>> 2]);
                 sb.append(base64EncodeChars[((b1 & 0x03) << 4) | ((b2 & 0xf0) >>> 4)]);
                 sb.append(base64EncodeChars[(b2 & 0x0f) << 2]);

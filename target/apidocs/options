@@ -1,0 +1,22 @@
+-classpath
+'D:/TestWorkSpace/util/myUtil/target/classes;E:/07maven/repository/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar;E:/07maven/repository/org/apache/commons/commons-pool2/2.5.0/commons-pool2-2.5.0.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'D:/TestWorkSpace/util/myUtil/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2019. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'D:/TestWorkSpace/util/myUtil/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'util 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'util 1.0-SNAPSHOT API'

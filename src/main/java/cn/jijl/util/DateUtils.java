@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@SuppressWarnings("ALL")
 public class DateUtils {
 
     public static String DATE_FORMAT = "yyyy-MM-dd";
@@ -37,11 +36,6 @@ public class DateUtils {
         return datestr;
     }
 
-    /**
-     * 获取当前日期时间 格式:yyyy-MM-dd HH:mm:ss
-     *
-     * @return
-     */
     public static String getCurrentDateTime() {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(DateUtils.DATE_TIME_FORMAT);
@@ -49,12 +43,6 @@ public class DateUtils {
         return datestr;
     }
 
-    /**
-     * 获取当前日期时间
-     *
-     * @param dateformat 自定义
-     * @return
-     */
     public static String getCurrentDateTime(String dateformat) {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(dateformat);
@@ -62,12 +50,6 @@ public class DateUtils {
         return datestr;
     }
 
-    /**
-     * 将date类型的时间转换成String
-     *
-     * @param date
-     * @return
-     */
     public static String dateToDateTime(Date date) {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(DateUtils.DATE_TIME_FORMAT);
@@ -75,12 +57,6 @@ public class DateUtils {
         return datestr;
     }
 
-    /**
-     * 将字符串日期转换为日期格式
-     *
-     * @param datestr
-     * @return
-     */
     public static Date stringToDate(String datestr) {
 
         if (datestr == null || "".equals(datestr)) {
@@ -96,13 +72,6 @@ public class DateUtils {
         return date;
     }
 
-
-    /**
-     * 将字符串日期转换为日期格式
-     *
-     * @param dateformat 自定义格式
-     * @return
-     */
     public static Date stringToDate(String datestr, String dateformat) {
         if (datestr == null || dateformat == null || "".equals(datestr) || "".equals(dateformat)) {
             return null;
@@ -117,13 +86,6 @@ public class DateUtils {
         return date;
     }
 
-
-    /**
-     * 将日期格式日期转换为字符串格式
-     *
-     * @param date 日期
-     * @return
-     */
     public static String dateToString(Date date) {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(DateUtils.DATE_FORMAT);
@@ -131,13 +93,6 @@ public class DateUtils {
         return datestr;
     }
 
-    /**
-     * 将日期格式日期转换为字符串格式
-     *
-     * @param date       日期
-     * @param dateformat 自定义格式
-     * @return
-     */
     public static String dateToString(Date date, String dateformat) {
         String datestr = null;
         SimpleDateFormat df = new SimpleDateFormat(dateformat);
@@ -145,12 +100,6 @@ public class DateUtils {
         return datestr;
     }
 
-    /**
-     * 获取日期的DAY值
-     *
-     * @param date 日期
-     * @return
-     */
     public static int getDayOfDate(Date date) {
         int d = 0;
         Calendar cd = Calendar.getInstance();
@@ -159,12 +108,6 @@ public class DateUtils {
         return d;
     }
 
-    /**
-     * 获取日期的MONTH值
-     *
-     * @param date 日期
-     * @return
-     */
     public static int getMonthOfDate(Date date) {
         int m = 0;
         Calendar cd = Calendar.getInstance();
@@ -173,12 +116,6 @@ public class DateUtils {
         return m;
     }
 
-    /**
-     * 获取日期的YEAR值
-     *
-     * @param date 日期
-     * @return
-     */
     public static int getYearOfDate(Date date) {
         int y = 0;
         Calendar cd = Calendar.getInstance();
@@ -187,12 +124,6 @@ public class DateUtils {
         return y;
     }
 
-    /**
-     * 获取星期几
-     *
-     * @param date 日期
-     * @return
-     */
     public static int getWeekOfDate(Date date) {
         int wd = 0;
         Calendar cd = Calendar.getInstance();
@@ -201,12 +132,6 @@ public class DateUtils {
         return wd;
     }
 
-    /**
-     * 获取输入日期的当月第一天
-     *
-     * @param date 日期
-     * @return
-     */
     public static Date getFirstDayOfMonth(Date date) {
         Calendar cd = Calendar.getInstance();
         cd.setTime(date);
@@ -214,22 +139,11 @@ public class DateUtils {
         return cd.getTime();
     }
 
-    /**
-     * 获得输入日期的当月最后一天
-     *
-     * @param date 日期
-     */
     public static Date getLastDayOfMonth(Date date) {
 
         return DateUtils.addDay(DateUtils.getFirstDayOfMonth(DateUtils.addMonth(date, 1)), -1);
     }
 
-    /**
-     * 判断是否是闰年
-     *
-     * @param date 日期
-     * @return 是true 否false
-     */
     public static boolean isLeapYEAR(Date date) {
 
         Calendar cd = Calendar.getInstance();
@@ -243,27 +157,12 @@ public class DateUtils {
         }
     }
 
-    /**
-     * 根据整型数表示的年月日，生成日期类型格式
-     *
-     * @param year  年
-     * @param month 月
-     * @param day   日
-     * @return
-     */
     public static Date getDateByYMD(int year, int month, int day) {
         Calendar cd = Calendar.getInstance();
         cd.set(year, month - 1, day);
         return cd.getTime();
     }
 
-    /**
-     * 获取年周期对应日
-     *
-     * @param date  日期
-     * @param iyear 年数  负数表示之前
-     * @return
-     */
     public static Date getYearCycleOfDate(Date date, int iyear) {
         Calendar cd = Calendar.getInstance();
         cd.setTime(date);
@@ -273,13 +172,6 @@ public class DateUtils {
         return cd.getTime();
     }
 
-    /**
-     * 获取月周期对应日
-     *
-     * @param date 输入日期
-     * @param i
-     * @return
-     */
     public static Date getMonthCycleOfDate(Date date, int i) {
         Calendar cd = Calendar.getInstance();
         cd.setTime(date);
@@ -289,13 +181,6 @@ public class DateUtils {
         return cd.getTime();
     }
 
-    /**
-     * 计算 fromDate 到 toDate 相差多少年
-     *
-     * @param fromDate
-     * @param toDate
-     * @return 年数
-     */
     public static int getYearByMinusDate(Date fromDate, Date toDate) {
         Calendar df = Calendar.getInstance();
         df.setTime(fromDate);
@@ -306,13 +191,6 @@ public class DateUtils {
         return dt.get(Calendar.YEAR) - df.get(Calendar.YEAR);
     }
 
-    /**
-     * 计算 fromDate 到 toDate 相差多少个月
-     *
-     * @param fromDate
-     * @param toDate
-     * @return 月数
-     */
     public static int getMonthByMinusDate(Date fromDate, Date toDate) {
         Calendar df = Calendar.getInstance();
         df.setTime(fromDate);
@@ -324,13 +202,6 @@ public class DateUtils {
                 (df.get(Calendar.YEAR) * 12 + df.get(Calendar.MONTH));
     }
 
-    /**
-     * 计算 fromDate 到 toDate 相差多少天
-     *
-     * @param fromDate
-     * @param toDate
-     * @return 天数
-     */
     public static long getDayByMinusDate(Object fromDate, Object toDate) {
 
         Date f = DateUtils.chgObject(fromDate);
@@ -343,13 +214,7 @@ public class DateUtils {
         return (td - fd) / (24L * 60L * 60L * 1000L);
     }
 
-    /**
-     * 计算年龄
-     *
-     * @param birthday 生日日期
-     * @param calcDate 要计算的日期点
-     * @return
-     */
+
     public static int calcAge(Date birthday, Date calcDate) {
 
         int cYear = DateUtils.getYearOfDate(calcDate);
@@ -366,12 +231,6 @@ public class DateUtils {
         }
     }
 
-    /**
-     * 从身份证中获取出生日期
-     *
-     * @param idno 身份证号码
-     * @return
-     */
     public static String getBirthDayFromIDCard(String idno) {
         Calendar cd = Calendar.getInstance();
         if (idno.length() == 15) {
@@ -392,12 +251,7 @@ public class DateUtils {
         return DateUtils.dateToString(cd.getTime());
     }
 
-    /**
-     * 在输入日期上增加（+）或减去（-）天数
-     *
-     * @param date 输入日期
-     * @param iday 要增加或减少的天数
-     */
+
     public static Date addDay(Date date, int iday) {
         Calendar cd = Calendar.getInstance();
 
@@ -408,12 +262,7 @@ public class DateUtils {
         return cd.getTime();
     }
 
-    /**
-     * 在输入日期上增加（+）或减去（-）月份
-     *
-     * @param date   输入日期
-     * @param imonth 要增加或减少的月分数
-     */
+
     public static Date addMonth(Date date, int imonth) {
         Calendar cd = Calendar.getInstance();
 
@@ -424,12 +273,6 @@ public class DateUtils {
         return cd.getTime();
     }
 
-    /**
-     * 在输入日期上增加（+）或减去（-）年份
-     *
-     * @param date  输入日期
-     * @param iyear 要增加或减少的年数
-     */
     public static Date addYear(Date date, int iyear) {
         Calendar cd = Calendar.getInstance();
 
@@ -440,12 +283,7 @@ public class DateUtils {
         return cd.getTime();
     }
 
-    /**
-     * 將Object类型转换为Date
-     *
-     * @param date
-     * @return
-     */
+
     public static Date chgObject(Object date) {
 
         if (date != null && date instanceof Date) {
@@ -460,12 +298,7 @@ public class DateUtils {
 
     }
 
-    /**
-     * 计算年龄
-     *
-     * @param date
-     * @return
-     */
+
     public static long getAgeByBirthday(String date) {
 
         Date birthday = stringToDate(date, "yyyy-MM-dd");
@@ -476,12 +309,6 @@ public class DateUtils {
         return age;
     }
 
-    /**
-     * 当前日期加上N天后到当前天24：00的毫秒
-     *
-     * @param day 为增加的天数
-     * @return
-     */
     public static long addMillisecond(Date date, int day) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, day + 1);
@@ -494,12 +321,6 @@ public class DateUtils {
     }
 
 
-    /**
-     * 当前日期加上天数后的日期
-     *
-     * @param time 为增加的天数
-     * @return
-     */
     public static String selWeek(long time) {
         Date today = new Date(time);
         Calendar c = Calendar.getInstance();
@@ -531,9 +352,6 @@ public class DateUtils {
         return String.valueOf(weekday);
     }
 
-    /**
-     * 两个日期相减,得到秒数
-     */
     public static int calcDays(Date maxDate, Date minDate) {
         if (maxDate == null || minDate == null) {
             return 0;
@@ -544,11 +362,6 @@ public class DateUtils {
         return c;
     }
 
-    /**
-     * 判断两个日期间隔秒数
-     *
-     * @return
-     */
     public static long checkDate(String beginDate, String endDate) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
         try {
@@ -562,11 +375,6 @@ public class DateUtils {
         return 0;
     }
 
-    /**
-     * 判断两个日期间隔小时
-     *
-     * @return
-     */
     public static int checkHourDate(String beginDate, String endDate) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
         try {
@@ -581,12 +389,6 @@ public class DateUtils {
         return 0;
     }
 
-    /**
-     * 将时间戳转换为Date
-     *
-     * @param s
-     * @return
-     */
     public static String stampToDate(String s) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
         String res;
@@ -596,13 +398,6 @@ public class DateUtils {
         return res;
     }
 
-    /**
-     * 计算2个时间之间相隔的小时，分钟，秒
-     *
-     * @param shelfDate
-     * @param endTime
-     * @return
-     */
     public static String formatDate(String shelfDate, String endTime) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
         try {
@@ -621,13 +416,6 @@ public class DateUtils {
         return null;
     }
 
-    /**
-     * 计算2个时间之间相隔的小时，分钟，秒
-     *
-     * @param shelfDate
-     * @param endTime
-     * @return
-     */
     public static Map<String, Long> formatDateToMap(String shelfDate, String endTime) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
         try {
@@ -650,12 +438,6 @@ public class DateUtils {
         return null;
     }
 
-    /**
-     * 将秒数转换成天，小时，分钟，秒
-     *
-     * @param mss 秒
-     * @return
-     */
     public static String formatDateTime(long mss) {
         String dateTimes = null;
         long days = mss / (60 * 60 * 24);
@@ -678,15 +460,6 @@ public class DateUtils {
         return dateTimes;
     }
 
-    /**
-     * 判断2个时间段是否有交集
-     *
-     * @param startdate1
-     * @param enddate1
-     * @param rightStartDate
-     * @param rightEndDate
-     * @return
-     */
     public static boolean isOverlap(String startdate1, String enddate1, Date rightStartDate, Date rightEndDate) {
         Date leftStartDate = null;
         Date leftEndDate = null;
@@ -713,13 +486,6 @@ public class DateUtils {
 
     }
 
-    /**
-     * 单位s 计算原点差值
-     *
-     * @param startTime 预约开始时间
-     * @param endTime   预约结束时间
-     * @return 0 预约开始时间转换值 1 预约结束时间转换值 单位 秒
-     */
     public static long[] calculateTime(long startTime, long endTime) {
         long[] result = new long[2];
         Calendar calendar = Calendar.getInstance();
@@ -746,13 +512,6 @@ public class DateUtils {
         return result;
     }
 
-    /**
-     * 在星期数组里面获取当前星期后面连续星期
-     *
-     * @param week  当前星期
-     * @param weeks 星期集合
-     * @return 不存在为-1,
-     */
     public static int sharingCycle(String week, String[] weeks) {
         boolean flag = false;
 

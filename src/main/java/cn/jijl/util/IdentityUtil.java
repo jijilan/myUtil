@@ -9,23 +9,12 @@ import java.util.UUID;
 
 public class IdentityUtil {
 
-    /**
-     * UUID
-     *
-     * @return
-     */
     public static String uuid() {
         String uuid = String.valueOf(UUID.randomUUID()).replace("-", "");
         uuid = uuid.substring(7);
         return uuid;
     }
 
-    /**
-     * 生成唯一编号
-     *
-     * @param title
-     * @return
-     */
     public static String identityId(String title) {
         int hashCodeV = UUID.randomUUID().toString().hashCode();
         //有可能是负数
@@ -36,11 +25,6 @@ public class IdentityUtil {
         return identityId;
     }
 
-    /**
-     * 生成支付流水号
-     *
-     * @return
-     */
     public static String outTradeNo(String serviceNo) {
         String currentTime = FastDateFormat.getInstance("yyyyMMddHHmmssSSS").format(System.currentTimeMillis());
         String prefix = currentTime.substring(0, 8);
@@ -49,12 +33,6 @@ public class IdentityUtil {
         return outTradeNo;
     }
 
-    /**
-     * 生成手机验证码
-     *
-     * @param length
-     * @return
-     */
     public static String getRandomNum(int length) {
         if (length == 0) {
             length = 6;
@@ -74,15 +52,9 @@ public class IdentityUtil {
         return random.nextInt(num);
     }
 
-    /**
-     * 生成验证码
-     *
-     * @return
-     */
     public static String verificationCode(int length) {
         if (length == 0) length = 6;
         String randomcode = "";
-        // 用字符数组的方式随机
         String model = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         char[] m = model.toCharArray();
         for (int j = 0; j < length; j++) {
@@ -103,11 +75,6 @@ public class IdentityUtil {
     }
 
 
-    /**
-     * 获取本机IP
-     *
-     * @return
-     */
     public static String getLocalhostIp() {
         String ip = "";
         try {

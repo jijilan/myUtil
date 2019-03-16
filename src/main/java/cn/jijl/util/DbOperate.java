@@ -2,17 +2,7 @@ package cn.jijl.util;
 
 import java.io.*;
 
-/**
- * @auther: liujiebang
- * @Date: Create in 2018/12/6
- * @Description:
- **/
 public class DbOperate {
-    /**
-     * 数据库表备份
-     *
-     * @throws Exception
-     */
     public static void tableBackup(String dbUser,String dbPass,String dbHost,String dbPort,String dbName,String savePath, String tableName)
             throws Exception {
 
@@ -41,12 +31,6 @@ public class DbOperate {
         inputStream.close();
     }
 
-    /**
-     * 备份数据库
-     *
-     * @param savePath
-     * @throws Exception
-     */
     public static void dbBackup(String dbUser, String dbPass, String dbHost,
                                 String dbPort, String dbName, String savePath) throws Exception {
 
@@ -74,12 +58,6 @@ public class DbOperate {
         inputStream.close();
     }
 
-    /**
-     * 执行sql文件
-     *
-     * @param savePath
-     * @throws Exception
-     */
     public static void dbRecover(String dbUser, String dbPass, String dbHost,
                                  String dbPort, String dbName, String savePath) throws Exception {
         // 获取操作数据库的相关属性
@@ -103,17 +81,6 @@ public class DbOperate {
         outputStream.close();
         br.close();
         writer.close();
-    }
-
-    public static void main(String[] args) {
-        try {
-            dbBackup("lzsharebed_root", "Szdlclzsharebed@43", "rm-wz9at4hz13l4e5vw58o.mysql.rds.aliyuncs.com","3306", "lzsharebed", "D:/lzsharebed.sql");
-            System.out.println("完成！");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 
 }
